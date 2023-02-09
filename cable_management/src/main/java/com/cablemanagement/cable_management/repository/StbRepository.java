@@ -1,0 +1,9 @@
+package com.cablemanagement.cable_management.repository;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.cablemanagement.cable_management.entity.Stb;
+
+public interface StbRepository extends CrudRepository<Stb,Long> {
+    
+}
