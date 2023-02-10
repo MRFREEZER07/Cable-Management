@@ -1,6 +1,12 @@
 package com.cablemanagement.cable_management.entity;
 
 import java.sql.Date;
+
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.micrometer.common.lang.Nullable;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.annotation.Nonnull;
@@ -18,7 +24,8 @@ import lombok.*;
 @Entity
 @Table(name = "payment")
 public class Payment {
-
+    public Long normalPrice =220L;
+    public Long sportsPrice = 250L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -26,16 +33,19 @@ public class Payment {
 
     @Nonnull
     @Column(name = "amount_paid")
-    private Long AmountPaid;
+    private Long amountPaid;
 
-    @NonNull
+    @Nullable
+    @LastModifiedDate
     @Column(name = "payment_date")
     private Date paymentDate;
 
-    @NonNull
-    @Column(name = "total_due")
-    private Long totalDue;
+    @Nullable
+    @Column(name = "due")
+    private Long due;
 
+
+    @JsonIgnore
     @OneToOne(mappedBy = "payment", optional = false)
     private Customer user;
 

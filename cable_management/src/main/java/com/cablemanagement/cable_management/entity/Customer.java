@@ -15,6 +15,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -35,34 +37,36 @@ public class Customer {
 
     @NonNull
     @Column(name = "address")
-    private String Address;
+    private String address;
 
     @NonNull
     @Column(name = "house_no")
     private String houseNo;
 
-    @NonNull
+    
     @Column(name = "active")
-    private Long active;
+    private boolean active = true;
 
     @NonNull
     @Column(name = "customer_type")
-    private String type;
+    private String customerType;
 
     @NonNull
     @Column(name = "pack")
     private String pack;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "stb_id", referencedColumnName = "id")
     private Stb stb;
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "payment_id", referencedColumnName = "id")
     private Payment payment;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<History> history;
 
 }

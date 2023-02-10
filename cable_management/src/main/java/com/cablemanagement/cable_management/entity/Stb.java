@@ -1,5 +1,7 @@
 package com.cablemanagement.cable_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,11 +36,12 @@ public class Stb {
     @NonNull
     @Column(name = "stbox_cust_number")
     private String StboxCustNumber;
-
+    
     @NonNull
     @Column(name = "stbox_type")
     private String StboxType;
-
+    
+    @JsonIgnore
     @OneToOne(mappedBy = "stb", optional = false)
     private Customer user;
 

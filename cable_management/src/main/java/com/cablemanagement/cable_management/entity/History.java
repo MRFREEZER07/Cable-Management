@@ -2,6 +2,10 @@ package com.cablemanagement.cable_management.entity;
 
 import java.sql.Date;
 
+import org.springframework.data.annotation.LastModifiedDate;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -31,14 +35,17 @@ public class History {
     @Column(name = "amount_paid")
     private Long AmountPaid;
 
+    
     @NonNull
+    @LastModifiedDate
     @Column(name = "payment_date")
     private Date paymentDate;
 
     @NonNull
-    @Column(name = "total_due")
-    private Long totalDue;
+    @Column(name = "due")
+    private Long due;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private Customer user;

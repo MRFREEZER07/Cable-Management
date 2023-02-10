@@ -1,6 +1,7 @@
 package com.cablemanagement.cable_management.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.cablemanagement.cable_management.entity.Customer;
 
@@ -9,15 +10,15 @@ public interface CustomerService {
 
     Customer getCustomer(Long id);
 
-    Customer addCustomer(Customer Customer);
+    Customer addNewCustomer(Customer Customer);
 
     void deleteCustomer(Long id);
 
-    Customer updateCustomerAddress(Long id, String address);
+    Customer deActivateCustomer(Long id);
 
-    Customer updateCustomerActive(Long id, Long active);
+    Customer activateCustomer(Long id);
 
-    Customer updateCustomerName(Long id, String name);
+    Customer unwrapCustomer(Optional<Customer> entity, Long id);
 
-    Customer updateCustomerType(Long id, String type);
+    Customer updateCustomer(Long id,Customer customer);
 }
