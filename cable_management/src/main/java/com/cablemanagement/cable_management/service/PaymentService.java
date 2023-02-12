@@ -1,5 +1,6 @@
 package com.cablemanagement.cable_management.service;
 
+import com.cablemanagement.cable_management.entity.Customer;
 import com.cablemanagement.cable_management.entity.Payment;
 
 public interface PaymentService {
@@ -9,7 +10,8 @@ public interface PaymentService {
 
     // Payment updatePayment(Long id, Payment payment);
 
-    Payment addHistory( Payment payment);
+    void addHistory( Payment payment,Customer customer);
     
-
+    String getDate();
+    
 }

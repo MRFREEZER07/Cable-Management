@@ -1,6 +1,8 @@
 package com.cablemanagement.cable_management.service;
 
 
+import java.util.Date;  
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 
@@ -34,42 +36,49 @@ public class PaymentServiceImpl implements PaymentService {
         return unwrapCustomer;
     }
 
+    //need to add update payment
+    //we can use this for both add 
     @Override
     public Payment addPayment(Long id, Payment payment) {
+        
         Optional<Customer> customer = customerRepository.findById(id);
         Customer unwrapedCustomer = unwrapCustomer(customer,id);
+        payment.setCustomer(unwrapedCustomer);
+
         
-        Long due;
-        if(unwrapedCustomer.getPack() == "sports"){
-            due = payment.getSportsPrice() - payment.getAmountPaid();
-            payment.setDue(due);
+        if(unwrapedCustomer.getPack().equals("sports")){
+            payment.setDue(payment.getSportsPrice() - payment.getPaid());
         }
-        if(unwrapedCustomer.getPack()=="normal"){
-            due = payment.getNormalPrice() - payment.getAmountPaid();
-            payment.setDue(due);
+        if(unwrapedCustomer.getPack().equals("normal")){
+            payment.setDue(payment.getNormalPrice() - payment.getPaid());
         }
-        if(unwrapedCustomer.getPack()=="custom"){
+        if(unwrapedCustomer.getPack().equals("custom")){
             return null;
         }
-        addHistory(payment);
+        payment.setPaymentDate(getDate());
+        addHistory(payment,unwrapedCustomer);
         return paymentRepository.save(payment);
     }
 
-    // @Override
-    // public Payment updatePayment(Long id, Payment payment) {
-    //     return null;
-    // }
+   
 
-    
+    public String getDate(){
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = new Date();
+        return simpleDateFormat.format(date);
+       
+    }
 
     @Override
-    public  Payment addHistory( Payment payment) {
+    public  void addHistory( Payment payment,Customer customer) {
         History history = new History();
-        history.setAmountPaid(payment.getAmountPaid());
+        history.setAmountPaid(payment.getPaid());
         history.setDue(payment.getDue());
-        history.setAmountPaid(payment.getAmountPaid());
+        history.setPaymentDate(payment.getPaymentDate());
+        history.setAmountPaid(payment.getPaid());
+        history.setCustomer(customer);
         historyRepository.save(history);
-        return null;
     }
 
     
