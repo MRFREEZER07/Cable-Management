@@ -14,29 +14,29 @@ import com.cablemanagement.cable_management.entity.Payment;
 import com.cablemanagement.cable_management.service.PaymentService;
 
 @RestController
-@RequestMapping("/payment")
+@RequestMapping("/api/v1/payment")
 public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/v1/{id}")
     public ResponseEntity<Payment> getUserPayments(@PathVariable Long id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/api/v1/{id}")
     public ResponseEntity<Payment> addUserPayment(@PathVariable Long id,@RequestBody Payment payment) {
         return new ResponseEntity<>(paymentService.addPayment(id, payment),HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/v1/{id}")
     public ResponseEntity<Payment> updateUserPayment(@RequestBody Payment payment, @PathVariable Long id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/due/{id}")
+    @GetMapping("/api/v1/due/{id}")
     public ResponseEntity<Payment> getUserDue(@PathVariable Long id) {
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(paymentService.getPayment(id),HttpStatus.OK);
     }
 
    

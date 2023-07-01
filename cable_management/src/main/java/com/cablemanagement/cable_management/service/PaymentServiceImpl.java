@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import com.cablemanagement.cable_management.entity.Customer;
 import com.cablemanagement.cable_management.entity.History;
 import com.cablemanagement.cable_management.entity.Payment;
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+
 import com.cablemanagement.cable_management.exception.CustomerNotFoundException;
 import com.cablemanagement.cable_management.exception.PaymentNotFoundException;
 import com.cablemanagement.cable_management.repository.CustomerRepository;
@@ -25,15 +29,17 @@ import lombok.*;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
-    CustomerRepository customerRepository;
-    PaymentRepository paymentRepository;
-    HistoryRepository historyRepository;
+
+        @Autowired
+        CustomerRepository customerRepository;
+        PaymentRepository paymentRepository;
+        HistoryRepository historyRepository;
+
 
     @Override
     public Payment getPayment(Long id) {
         Optional<Payment> payment = paymentRepository.findById(id);
-        Payment unwrapCustomer = unwrapPayment(payment, id);
-        return unwrapCustomer;
+        return unwrapPayment(payment, id);
     }
 
     //need to add update payment
@@ -52,9 +58,9 @@ public class PaymentServiceImpl implements PaymentService {
         if(unwrapedCustomer.getPack().equals("normal")){
             payment.setDue(payment.getNormalPrice() - payment.getPaid());
         }
-        if(unwrapedCustomer.getPack().equals("custom")){
-            return null;
-        }
+//        if(unwrapedCustomer.getPack().equals("custom")){
+//            return null;
+//        }
         payment.setPaymentDate(getDate());
         addHistory(payment,unwrapedCustomer);
         return paymentRepository.save(payment);

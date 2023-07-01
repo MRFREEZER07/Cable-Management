@@ -21,17 +21,17 @@ public class StbController {
     @Autowired
     StbService stbService;
 
-    @PostMapping("/{id}")
+    @PostMapping("/api/v1/{id}")
     public ResponseEntity<Stb> addCustomerStb(@PathVariable Long id,@RequestBody Stb stb) {
         return new ResponseEntity<>(stbService.addStbDetails(id, stb),HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/v1/{id}")
     public ResponseEntity<Stb> getStb(@PathVariable Long id){
         return new ResponseEntity<>(stbService.getStbDetails(id),HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/v1/{id}")
     public ResponseEntity<Stb> updateCustomerStb(@PathVariable Long id,@RequestBody Stb stb){
         return new ResponseEntity<>(stbService.updateStbDetails(id, stb),HttpStatus.CREATED);
     }

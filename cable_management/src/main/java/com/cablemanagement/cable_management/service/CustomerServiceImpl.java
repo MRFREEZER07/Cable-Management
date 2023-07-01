@@ -47,7 +47,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer deActivateCustomer(Long id) {
         Optional<Customer> customer = customerRepository.findById(id);
         Customer unwrapedCustomer = unwrapCustomer(customer, id);
-        if(unwrapedCustomer.isActive()==true){
+        if(unwrapedCustomer.isActive()){
             unwrapedCustomer.setActive(false);
         return customerRepository.save(unwrapedCustomer);
         }else{
@@ -90,6 +90,7 @@ public class CustomerServiceImpl implements CustomerService {
         if(customer.getPack()!=null){
             unwrapedCustomer.setPack(customer.getPack());
         }
+
         
         return customerRepository.save(unwrapedCustomer);
     }

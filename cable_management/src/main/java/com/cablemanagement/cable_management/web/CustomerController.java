@@ -2,7 +2,7 @@ package com.cablemanagement.cable_management.web;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,18 +19,22 @@ import com.cablemanagement.cable_management.entity.Customer;
 import com.cablemanagement.cable_management.service.CustomerService;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/api/v1/customer")
 public class CustomerController {
 
-    @Autowired
-    CustomerService customerService;
 
-    @GetMapping("/{id}")
+    private final CustomerService customerService;
+
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+    @GetMapping("/api/v1/{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.getCustomer(id),HttpStatus.OK);
     }
 
-    @GetMapping("/all")
+    @GetMapping("/api/v1/all")
     public ResponseEntity<List<Customer>> getAll() {
         return new ResponseEntity<>(customerService.getCustomers(),HttpStatus.OK);
     }
@@ -40,15 +44,18 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.addNewCustomer(customer),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/v1/{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/v1/{id}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable Long id) {
         return new ResponseEntity<>(customerService.updateCustomer(id, customer),HttpStatus.OK);
     }
+
+    //add active and deactivate customer
+
 
 }
