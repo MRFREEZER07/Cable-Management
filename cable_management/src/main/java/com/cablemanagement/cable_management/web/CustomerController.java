@@ -29,12 +29,12 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/api/v1/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Customer> getCustomer(@PathVariable Long id) {
         return new ResponseEntity<>(customerService.getCustomer(id),HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/all")
+    @GetMapping("all")
     public ResponseEntity<List<Customer>> getAll() {
         return new ResponseEntity<>(customerService.getCustomers(),HttpStatus.OK);
     }
@@ -44,13 +44,13 @@ public class CustomerController {
         return new ResponseEntity<>(customerService.addNewCustomer(customer),HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/api/v1/{id}")
+    @DeleteMapping("{id}")
     public ResponseEntity<HttpStatus> deleteCustomer(@PathVariable Long id) {
         customerService.deleteCustomer(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @PutMapping("/api/v1/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Customer> updateCustomer(@RequestBody Customer customer, @PathVariable Long id) {
         return new ResponseEntity<>(customerService.updateCustomer(id, customer),HttpStatus.OK);
     }

@@ -16,22 +16,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
-@RequestMapping("/stb")
+@RequestMapping("/api/v1/stb")
 public class StbController {
     @Autowired
     StbService stbService;
 
-    @PostMapping("/api/v1/{id}")
+    @PostMapping("{id}")
     public ResponseEntity<Stb> addCustomerStb(@PathVariable Long id,@RequestBody Stb stb) {
         return new ResponseEntity<>(stbService.addStbDetails(id, stb),HttpStatus.CREATED);
     }
 
-    @GetMapping("/api/v1/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Stb> getStb(@PathVariable Long id){
         return new ResponseEntity<>(stbService.getStbDetails(id),HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Stb> updateCustomerStb(@PathVariable Long id,@RequestBody Stb stb){
         return new ResponseEntity<>(stbService.updateStbDetails(id, stb),HttpStatus.CREATED);
     }

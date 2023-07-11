@@ -19,22 +19,22 @@ public class PaymentController {
     @Autowired
     PaymentService paymentService;
 
-    @GetMapping("/api/v1/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Payment> getUserPayments(@PathVariable Long id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/api/v1/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<Payment> addUserPayment(@PathVariable Long id,@RequestBody Payment payment) {
         return new ResponseEntity<>(paymentService.addPayment(id, payment),HttpStatus.OK);
     }
 
-    @PutMapping("/api/v1/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Payment> updateUserPayment(@RequestBody Payment payment, @PathVariable Long id) {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/api/v1/due/{id}")
+    @GetMapping("due/{id}")
     public ResponseEntity<Payment> getUserDue(@PathVariable Long id) {
         return new ResponseEntity<>(paymentService.getPayment(id),HttpStatus.OK);
     }

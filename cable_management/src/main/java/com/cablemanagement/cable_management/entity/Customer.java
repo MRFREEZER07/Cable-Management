@@ -68,4 +68,11 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<History> history;
 
+    public Customer(@NonNull String name, @NonNull String address, @NonNull String houseNo,  @NonNull String customerType, @NonNull String pack) {
+        this.name = name;
+        this.address = address;
+        this.houseNo = houseNo;
+        this.customerType = customerType;
+        this.pack = pack;
+    }
 }
